@@ -10,7 +10,7 @@ set release xenial
 set base-url ${mirror}/ubuntu/dists/${release}/main/installer-${arch}/current/images/netboot/ubuntu-installer/${arch}
 kernel ${base-url}/linux
 initrd ${base-url}/initrd.gz
-imgargs linux auto=true url=http://yourserver/some/path/preseed.cfg
+#imgargs linux auto=true url=http://yourserver/some/path/preseed.cfg
 boot || goto failed
 
 :failed

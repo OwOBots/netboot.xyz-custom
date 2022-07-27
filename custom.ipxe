@@ -1,23 +1,20 @@
 #!ipxe
-###
-### netboot.xyz-custom menu example
-###
+#yonked from https://gist.github.com/joelio/81acc4f07725a5aba2bcb7620071bce7
+dhcp net0
+## Figure out if client is 64-bit capable
+cpuid --ext 29 && set arch x64 || set arch x86
+#
+echo Starting Ubuntu Xenial installer for ${mac}
+set mirror http://archive.ubuntu.com
+set release xenial
+set base-url ${mirror}/ubuntu/dists/${release}/main/installer-${arch}/current/images/netboot/ubuntu-installer/${arch}
+kernel ${base-url}/linux
+initrd ${base-url}/initrd.gz
+imgargs linux auto=true url=http://yourserver/some/path/preseed.cfg
+boot || goto failed
 
-:custom
-clear custom_choice
-menu this is just a ubuntu server install thats it 
-item --gap is this needed?
-item option_one ${space} iso time
-choose custom_choice || goto custom_exit
-echo ${cls}
-goto ${custom_choice}
-goto custom_exit
-
-:option_one
-kernel https://boot.netboot.xyz/memdisk raw iso
-initrd http://cdimage.ubuntu.com/ubuntu-server/focal/daily/current/focal-legacy-server-amd64.iso
-boot || goto custom_exit
-
-:custom_exit
-chain utils.ipxe
-exit
+:failed
+## If everything failed, give the user some options
+echo Boot from ${base-url} failed
+prompt --key 0x197e --timeout 2000 Press F12 to investigate || exit
+shell

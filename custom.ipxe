@@ -16,5 +16,5 @@ boot || goto failed
 :failed
 ## If everything failed, give the user some options
 echo Boot from ${base-url} failed
-prompt --key 0x197e --timeout 2000 Press F12 to investigate || exit
-shell
+prompt --key 0x197e --timeout 2000 Press F12 to investigate || chain utils.ipxe
+exit

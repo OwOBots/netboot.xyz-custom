@@ -1,5 +1,5 @@
 #!ipxe
-#yonked from https://gist.github.com/joelio/81acc4f07725a5aba2bcb7620071bce7
+##yonked from https://gist.github.com/joelio/81acc4f07725a5aba2bcb7620071bce7
 dhcp net0
 ## Figure out if client is 64-bit capable
 cpuid --ext 29 && set arch x64 || set arch x86
